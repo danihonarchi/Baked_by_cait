@@ -42,7 +42,7 @@ export default function FlavorCase() {
             >
               <p className="font-display text-lg">{f.name}</p>
               <p className="text-sm text-parchment/80">{f.tagline}</p>
-              <p className="font-ticket text-base text-buttercream">{formatPrice(f.pricePerCookieCents)} each</p>
+              <p className="font-ticket text-base text-buttercream">{formatPrice(f.priceCents)} each</p>
               <div className="flex flex-wrap justify-center gap-1 pt-1">
                 {f.tags.map((t) => (
                   <span key={t} className="rounded-full border border-parchment/30 px-2 py-0.5 text-[10px] uppercase tracking-wide">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Nav from "@/components/Nav";
-import { flavors } from "@/lib/flavors";
+import { allProducts } from "@/lib/flavors";
 
 // Where catering requests get sent. Change this to Cait's real inbox.
 const CATERING_EMAIL = "caitlynhankins01@gmail.com";
@@ -27,9 +27,9 @@ export default function CateringPage() {
     e.preventDefault();
     setError(null);
 
-    const chosenFlavors = flavors.filter((f) => selected[f.id]);
-    if (!name.trim() || !email.trim() || !eventDate) {
-      setError("Name, email, and event date are all required so we can quote this.");
+    const chosenFlavors = allProducts.filter((f) => selected[f.id]);
+    if (!name.trim() || !email.trim() || !phone.trim() || !eventDate) {
+      setError("Name, email, phone, and event date are all required so we can quote this.");
       return;
     }
     if (chosenFlavors.length === 0) {
@@ -74,7 +74,7 @@ export default function CateringPage() {
           <div>
             <p className="font-semibold text-cocoa">Which flavors are you interested in?</p>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {flavors.map((f) => (
+              {allProducts.map((f) => (
                 <button
                   type="button"
                   key={f.id}
@@ -102,8 +102,8 @@ export default function CateringPage() {
               <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2" />
             </div>
             <div>
-              <label className="block text-sm text-cocoa/70" htmlFor="phone">Phone (optional)</label>
-              <input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2" />
+              <label className="block text-sm text-cocoa/70" htmlFor="phone">Phone</label>
+              <input id="phone" required value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2" />
             </div>
             <div>
               <label className="block text-sm text-cocoa/70" htmlFor="eventDate">Date needed</label>

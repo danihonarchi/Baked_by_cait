@@ -1,7 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import Nav from "@/components/Nav";
 import HeroCookie from "@/components/HeroCookie";
 import FlavorCase from "@/components/FlavorCase";
+import { PICKUP_ADDRESS } from "@/lib/delivery";
 
 export default function Home() {
   return (
@@ -22,7 +24,7 @@ export default function Home() {
             Pick your dozen, choose pickup or local delivery, done.
           </p>
           <p className="mt-3 font-ticket text-sm text-cherry">
-            Buy 4, get the 5th free &mdash; automatic at checkout.
+            Buy 4 cookies, get the 5th free &mdash; automatic at checkout.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
             <Link
@@ -51,22 +53,61 @@ export default function Home() {
           </p>
         </div>
         <FlavorCase />
+        <div className="mt-6 text-center">
+          <Link
+            href="/order"
+            className="inline-block rounded-full border border-cocoa/20 px-6 py-3 font-semibold text-cocoa transition hover:border-cocoa"
+          >
+            Also ordering online: cinnamon rolls with vanilla cream cheese &rarr;
+          </Link>
+        </div>
+      </section>
+
+      {/* Weekend cookie cart */}
+      <section className="border-y border-cocoa/10 bg-buttercream/40">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl grain-shadow">
+            <Image
+              src="/images/cookie-cart.jpg"
+              alt="The Baked by Cait self-serve cookie cart"
+              fill
+              sizes="(min-width: 768px) 480px, 100vw"
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <p className="font-ticket text-xs uppercase tracking-widest text-cherry">
+              Friday &ndash; Sunday
+            </p>
+            <h2 className="mt-2 font-display text-3xl italic text-cocoa">The weekend cookie cart</h2>
+            <p className="mt-4 text-cocoa/70">
+              No need to order ahead for this one &mdash; swing by our self-serve
+              cart out front, pick what looks good, and pay right there on the
+              honor system. Flavors rotate week to week, so it's never quite
+              the same lineup twice.
+            </p>
+            <p className="mt-3 text-cocoa/70">
+              <span className="font-semibold text-cocoa">Sundays only:</span> jumbo
+              cinnamon rolls join the cart, while they last.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Delivery / pickup blurb */}
-      <section className="border-y border-cocoa/10 bg-buttercream/60">
+      <section className="border-b border-cocoa/10">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-14 sm:grid-cols-2">
           <div>
             <h3 className="font-display text-2xl italic text-cocoa">Pickup</h3>
             <p className="mt-2 text-cocoa/70">
-              Free, always. Grab your order from 1712 W Lindsey St, Norman, OK
-              at the time you pick during checkout.
+              Free, always. Pick a date and time window at checkout, then grab
+              your order from {PICKUP_ADDRESS}.
             </p>
           </div>
           <div>
             <h3 className="font-display text-2xl italic text-cocoa">Local delivery</h3>
             <p className="mt-2 text-cocoa/70">
-              Delivered within about 15 miles of Norman. Enter your zip at
+              Delivered within about 10 miles of Norman. Enter your address at
               checkout and the fee shows up automatically &mdash; no surprises.
             </p>
           </div>

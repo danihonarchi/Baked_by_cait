@@ -36,14 +36,15 @@ Stripe's cut is the standard ~2.9% + 30 cents per transaction, no monthly fee.
 
 Everything you'll want to change day-to-day lives in a few files:
 
-- **`lib/flavors.ts`** — flavor names, taglines, prices, tags, and which
-  photo each one uses. Add or remove flavors here; the flavor case, order
-  page, and catering page all update automatically. This is also where the
-  "buy 4 get the 5th free" math lives (`calculatePromoDiscountCents`) — it
-  applies to every 5 cookies across the whole order, not per flavor.
+- **`lib/flavors.ts`** — flavor and cinnamon roll names, taglines, prices,
+  tags, photos, and category (`cookie` vs `roll`). Add or remove items here;
+  the flavor case, order page, and catering page all update automatically.
+  Each category has its own minimum order quantity (`COOKIE_MINIMUM`,
+  `ROLL_MINIMUM`, both 4 by default) and a `promoEligible` flag — only
+  cookies are eligible for "buy 4 get the 5th free" right now.
 - **`lib/delivery.ts`** — which zip codes get delivery and what the fee is
-  for each. It's a simple lookup table to start (not a true mileage
-  calculation) — good enough for a single shop with a ~15 mile radius. If
+  for each. It's a simple lookup table (not a true mileage calculation) —
+  good enough for a single shop with a ~10 mile radius. If
   you want a real "how far is this address" check later, this is the file
   to swap out for a Google Maps Distance Matrix API call.
 - **`public/images/`** — the actual cookie and logo photos. To swap a photo,
