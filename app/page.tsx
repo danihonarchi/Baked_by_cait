@@ -3,7 +3,9 @@ import Image from "next/image";
 import Nav from "@/components/Nav";
 import HeroCookie from "@/components/HeroCookie";
 import FlavorCase from "@/components/FlavorCase";
+import ProductFlipCard from "@/components/ProductFlipCard";
 import { PICKUP_ADDRESS } from "@/lib/delivery";
+import { rolls } from "@/lib/flavors";
 
 export default function Home() {
   return (
@@ -53,13 +55,17 @@ export default function Home() {
           </p>
         </div>
         <FlavorCase />
-        <div className="mt-6 text-center">
-          <Link
-            href="/order"
-            className="inline-block rounded-full border border-cocoa/20 px-6 py-3 font-semibold text-cocoa transition hover:border-cocoa"
-          >
-            Also ordering online: cinnamon rolls with vanilla cream cheese &rarr;
-          </Link>
+
+        <div className="mt-14 border-t border-cocoa/10 pt-14">
+          <div className="mb-8 text-center">
+            <h3 className="font-display text-2xl italic text-cocoa">Also baking</h3>
+            <p className="mt-2 text-cocoa/60">Available to order online, any day of the week.</p>
+          </div>
+          <div className="mx-auto max-w-xs">
+            <Link href="/order" className="block">
+              <ProductFlipCard product={rolls[0]} />
+            </Link>
+          </div>
         </div>
       </section>
 
