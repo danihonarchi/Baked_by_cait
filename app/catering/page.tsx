@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Nav from "@/components/Nav";
 import { allProducts } from "@/lib/flavors";
+import { getMinLeadDate } from "@/lib/delivery";
 
 // Where catering requests get sent. Change this to Cait's real inbox.
 const CATERING_EMAIL = "caitlynhankins01@gmail.com";
@@ -19,6 +20,8 @@ export default function CateringPage() {
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
 
+  const minEventDate = useMemo(() => getMinLeadDate(), []);
+
   function toggle(id: string) {
     setSelected((s) => ({ ...s, [id]: !s[id] }));
   }
@@ -32,22 +35,26 @@ export default function CateringPage() {
       setError("Name, email, phone, and event date are all required so we can quote this.");
       return;
     }
+    if (eventDate < minEventDate) {
+      setError("We need at least a day's notice, so pick a date a little further out.");
+      return;
+    }
     if (chosenFlavors.length === 0) {
       setError("Pick at least one flavor you're interested in.");
       return;
     }
 
-    const subject = encodeURIComponent(`Catering quote request — ${name} — ${eventDate}`);
+    const subject = encodeURIComponent(`Catering quote request from ${name}, ${eventDate}`);
     const body = encodeURIComponent(
       [
         `Name: ${name}`,
         `Email: ${email}`,
-        `Phone: ${phone || "—"}`,
+        `Phone: ${phone || "Not provided"}`,
         `Event date needed: ${eventDate}`,
-        `Approx. guest count: ${guestCount || "—"}`,
+        `Approx. guest count: ${guestCount || "Not provided"}`,
         `Flavors interested in: ${chosenFlavors.map((f) => f.name).join(", ")}`,
         "",
-        `Notes: ${notes || "—"}`,
+        `Notes: ${notes || "None"}`,
       ].join("\n")
     );
 
@@ -61,7 +68,9 @@ export default function CateringPage() {
       <section className="mx-auto max-w-3xl px-6 py-12">
         <h1 className="font-display text-4xl italic text-cocoa">Catering &amp; large orders</h1>
         <p className="mt-2 text-cocoa/60">
-          Tell us what you're picturing and we'll follow up with pricing. This opens an email to us with your details filled in — nothing is charged here.
+          Tell us what you're picturing and we'll follow up with pricing.
+          This just opens an email to us with your details already filled
+          in. Nothing gets charged here, we'll get back to you first.
         </p>
 
         {sent && (
@@ -107,7 +116,15 @@ export default function CateringPage() {
             </div>
             <div>
               <label className="block text-sm text-cocoa/70" htmlFor="eventDate">Date needed</label>
-              <input id="eventDate" type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2" />
+              <p className="mt-0.5 text-xs text-cocoa/50">At least a day's notice, please.</p>
+              <input
+                id="eventDate"
+                type="date"
+                min={minEventDate}
+                value={eventDate}
+                onChange={(e) => setEventDate(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2"
+              />
             </div>
             <div className="sm:col-span-2">
               <label className="block text-sm text-cocoa/70" htmlFor="guestCount">Approx. guest count / cookie count</label>

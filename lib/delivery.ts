@@ -46,3 +46,15 @@ export const PICKUP_WINDOWS = [
   "1:00 PM – 3:00 PM",
   "3:00 PM – 5:00 PM",
 ];
+
+// Earliest date we'll accept for a pickup or catering event, in the
+// browser's local time. Used both to set the date picker's minimum and to
+// validate before submitting.
+export function getMinLeadDate(): string {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}

@@ -5,22 +5,13 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import { flavors, rolls, calculatePromoDiscountCents, COOKIE_MINIMUM, ROLL_MINIMUM, type Product } from "@/lib/flavors";
-import { getDeliveryFeeCents, isDeliveryZip, PICKUP_ADDRESS, PICKUP_WINDOWS } from "@/lib/delivery";
+import { getDeliveryFeeCents, isDeliveryZip, PICKUP_ADDRESS, PICKUP_WINDOWS, getMinLeadDate } from "@/lib/delivery";
 
 function formatCents(cents: number) {
   return `$${(cents / 100).toFixed(2)}`;
 }
 
 type Fulfillment = "pickup" | "delivery";
-
-function getMinPickupDate(): string {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
 
 function ProductRow({
   product,
@@ -88,7 +79,7 @@ export default function OrderPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const minPickupDate = useMemo(() => getMinPickupDate(), []);
+  const minPickupDate = useMemo(() => getMinLeadDate(), []);
 
   function updateQty(id: string, delta: number) {
     setQuantities((q) => ({ ...q, [id]: Math.max(0, (q[id] ?? 0) + delta) }));
@@ -142,7 +133,7 @@ export default function OrderPage() {
       return;
     }
     if (fulfillment === "pickup" && pickupDate < minPickupDate) {
-      setError("Pickup needs at least a day's notice — please pick a later date.");
+      setError("Pickup needs at least a day's notice, so pick a date a little further out.");
       return;
     }
     if (fulfillment === "delivery") {
@@ -151,7 +142,7 @@ export default function OrderPage() {
         return;
       }
       if (!zipRecognized) {
-        setError("That zip is outside our ~10 mile delivery area right now — try pickup instead.");
+        setError("That zip's outside our ~10 mile delivery area right now. Pickup might work better!");
         return;
       }
     }
@@ -189,7 +180,7 @@ export default function OrderPage() {
         setLoading(false);
       }
     } catch {
-      setError("Couldn't reach checkout — check your connection and try again.");
+      setError("Couldn't reach checkout. Check your connection and try again.");
       setLoading(false);
     }
   }

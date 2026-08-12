@@ -24,7 +24,7 @@ export default function Home() {
             Pick your dozen, choose pickup or local delivery, done.
           </p>
           <p className="mt-3 font-ticket text-sm text-cherry">
-            Buy 4 cookies, get the 5th free &mdash; automatic at checkout.
+            Buy 4 cookies, get the 5th free. We add it in automatically at checkout.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
             <Link
@@ -77,14 +77,14 @@ export default function Home() {
           </div>
           <div>
             <p className="font-ticket text-xs uppercase tracking-widest text-cherry">
-              Friday &ndash; Sunday
+              Friday through Sunday
             </p>
             <h2 className="mt-2 font-display text-3xl italic text-cocoa">The weekend cookie cart</h2>
             <p className="mt-4 text-cocoa/70">
-              No need to order ahead for this one &mdash; swing by our self-serve
-              cart out front, pick what looks good, and pay right there on the
-              honor system. Flavors rotate week to week, so it's never quite
-              the same lineup twice.
+              No need to order ahead for this one. Just swing by our
+              self-serve cart out front, pick what looks good, and pay right
+              there on the honor system. Flavors rotate week to week, so it's
+              never quite the same lineup twice.
             </p>
             <p className="mt-3 text-cocoa/70">
               <span className="font-semibold text-cocoa">Sundays only:</span> jumbo
@@ -107,8 +107,8 @@ export default function Home() {
           <div>
             <h3 className="font-display text-2xl italic text-cocoa">Local delivery</h3>
             <p className="mt-2 text-cocoa/70">
-              Delivered within about 10 miles of Norman. Enter your address at
-              checkout and the fee shows up automatically &mdash; no surprises.
+              Delivered within about 10 miles of Norman. Enter your address
+              at checkout and you'll see the fee right away. No surprises.
             </p>
           </div>
         </div>
@@ -118,7 +118,8 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-14 text-center">
         <h3 className="font-display text-2xl italic text-cocoa">Feeding a crowd?</h3>
         <p className="mx-auto mt-2 max-w-md text-cocoa/70">
-          Weddings, offices, parties &mdash; tell us what you need and we&apos;ll send over a quote.
+          Weddings, offices, parties, whatever you've got going on. Tell us
+          what you need and we'll send over a quote.
         </p>
         <Link
           href="/catering"
