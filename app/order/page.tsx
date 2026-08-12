@@ -13,6 +13,15 @@ function formatCents(cents: number) {
 
 type Fulfillment = "pickup" | "delivery";
 
+function getMinPickupDate(): string {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function ProductRow({
   product,
   qty,
@@ -79,6 +88,8 @@ export default function OrderPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const minPickupDate = useMemo(() => getMinPickupDate(), []);
+
   function updateQty(id: string, delta: number) {
     setQuantities((q) => ({ ...q, [id]: Math.max(0, (q[id] ?? 0) + delta) }));
   }
@@ -128,6 +139,10 @@ export default function OrderPage() {
     }
     if (fulfillment === "pickup" && (!pickupDate || !pickupWindow)) {
       setError("Pick a pickup date and time window.");
+      return;
+    }
+    if (fulfillment === "pickup" && pickupDate < minPickupDate) {
+      setError("Pickup needs at least a day's notice — please pick a later date.");
       return;
     }
     if (fulfillment === "delivery") {
@@ -236,9 +251,11 @@ export default function OrderPage() {
                 <label className="block text-sm text-cocoa/70" htmlFor="pickupDate">
                   Pickup date
                 </label>
+                <p className="mt-0.5 text-xs text-cocoa/50">At least a day's notice, please.</p>
                 <input
                   id="pickupDate"
                   type="date"
+                  min={minPickupDate}
                   value={pickupDate}
                   onChange={(e) => setPickupDate(e.target.value)}
                   className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2"

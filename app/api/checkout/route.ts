@@ -81,6 +81,15 @@ export async function POST(req: NextRequest) {
     if (fulfillment === "pickup" && (!pickupDate || !pickupWindow)) {
       return NextResponse.json({ error: "A pickup date and time window are required" }, { status: 400 });
     }
+    if (fulfillment === "pickup" && pickupDate) {
+      const minDate = new Date();
+      minDate.setDate(minDate.getDate() + 1);
+      minDate.setHours(0, 0, 0, 0);
+      const requested = new Date(`${pickupDate}T00:00:00`);
+      if (requested < minDate) {
+        return NextResponse.json({ error: "Pickup needs at least a day's notice" }, { status: 400 });
+      }
+    }
 
     if (!customer.phone) {
       return NextResponse.json({ error: "A phone number is required" }, { status: 400 });
