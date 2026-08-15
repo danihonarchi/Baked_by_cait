@@ -116,6 +116,7 @@ export async function POST(req: NextRequest) {
       line_items,
       discounts,
       customer_email: customer.email || undefined,
+      payment_intent_data: customer.email ? { receipt_email: customer.email } : undefined,
       success_url: `${origin}/order/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/order`,
       metadata: {
