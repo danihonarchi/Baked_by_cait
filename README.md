@@ -32,7 +32,34 @@ Open http://localhost:3000.
 
 Stripe's cut is the standard ~2.9% + 30 cents per transaction, no monthly fee.
 
-## 3. Customize it
+## 3. Set up order notification emails
+
+New orders email Cait automatically (full order details, not just "you got
+paid") using Stripe webhooks + Resend for the actual sending. Two things to
+set up:
+
+**Resend (sends the email):**
+1. Create a free account at https://resend.com (3,000 emails/month free)
+2. Go to **API Keys**, create one, and copy it into `.env.local` as
+   `RESEND_API_KEY`
+3. Out of the box this sends from Resend's own shared address
+   (`orders@resend.dev`), which works immediately with zero setup. For
+   better deliverability later, verify your own domain in Resend and update
+   `FROM_ADDRESS` in `lib/email.ts`.
+
+**Stripe webhook (tells your site when a payment completes):**
+1. In the Stripe dashboard, go to **Developers → Webhooks → Add endpoint**
+2. Endpoint URL: `https://your-deployed-url.vercel.app/api/webhook` (your
+   real Vercel URL, not localhost — this step only matters for the deployed
+   site, not local dev)
+3. Select the event `checkout.session.completed`
+4. After creating it, copy the **Signing secret** (starts with `whsec_...`)
+   into your environment as `STRIPE_WEBHOOK_SECRET`
+
+Where Cait's notification email goes is set in `lib/config.ts`
+(`BUSINESS_EMAIL`) — change it there if it ever needs to be a different inbox.
+
+## 4. Customize it
 
 Everything you'll want to change day-to-day lives in a few files:
 
@@ -64,20 +91,15 @@ Colors and fonts are in `tailwind.config.ts` and `app/layout.tsx` if you want
 to adjust the palette (currently a butterscotch / cherry / cocoa bakery
 theme) or swap the display font.
 
-## 4. What this doesn't do yet (on purpose)
+## 5. What this doesn't do yet (on purpose)
 
 - **No order dashboard.** Every paid order shows up in your Stripe dashboard
   under Payments, with the customer's name/notes/zip in the metadata. For a
   handful of orders a week that's genuinely enough — no need for a database yet.
-- **No automatic "you've got a new order" text/email to Cait.** Stripe will
-  email the customer a receipt automatically. If you want a ping to Cait's
-  phone too, the cheapest add-on is a Stripe webhook that posts to a Zapier
-  or Make.com flow that texts/emails her — happy to wire that up once the
-  base site is live and you know you want it.
 - **No shipping.** Deliberately left out per your ask — pickup and local
   delivery only.
 
-## 5. Deploy it (free)
+## 6. Deploy it (free)
 
 1. Push this folder to a GitHub repo
 2. Go to https://vercel.com, sign in with GitHub, "Import Project," pick the repo

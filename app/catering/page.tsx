@@ -6,8 +6,9 @@ import Nav from "@/components/Nav";
 import { allProducts } from "@/lib/flavors";
 import { getMinLeadDate } from "@/lib/delivery";
 
-// Where catering requests get sent. Change this to Cait's real inbox.
-const CATERING_EMAIL = "caitlynhankins01@gmail.com";
+import { BUSINESS_EMAIL } from "@/lib/config";
+
+const CATERING_EMAIL = BUSINESS_EMAIL;
 
 export default function CateringPage() {
   const [selected, setSelected] = useState<Record<string, boolean>>({});

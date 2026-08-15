@@ -21,7 +21,7 @@ export const flavors: Product[] = [
   {
     id: "deluxe-chocolate-chip",
     name: "Deluxe Chocolate Chip",
-    tagline: "Loaded with chocolate chips, soft and gooey center ",
+    tagline: "Loaded with chocolate chips, soft and gooey center",
     priceCents: 400,
     image: "/images/deluxe-chocolate-chip.png",
     tags: ["classic", "best seller"],
