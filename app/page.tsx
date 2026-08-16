@@ -48,9 +48,9 @@ export default function Home() {
       {/* Flavor case */}
       <section id="flavors" className="mx-auto max-w-6xl px-6 py-16">
         <div className="mb-10 text-center">
-          <h2 className="font-display text-3xl italic text-cocoa">This week's case</h2>
+          <h2 className="font-display text-3xl italic text-cocoa">Flavors Available This Week</h2>
           <p className="mt-2 text-cocoa/60">
-            The lineup rotates. Whatever's below is what's fresh right now.
+            The lineup rotates. Here's what we're baking this week.
           </p>
         </div>
         <FlavorCase />
@@ -58,7 +58,7 @@ export default function Home() {
         <div className="mt-14 border-t border-cocoa/10 pt-14">
           <div className="mb-8 text-center">
             <h3 className="font-display text-2xl italic text-cocoa">Also baking</h3>
-            <p className="mt-2 text-cocoa/60">Available to order online, any day of the week.</p>
+            
           </div>
           <div className="mx-auto max-w-xs">
             <Link href="/order" className="block">
