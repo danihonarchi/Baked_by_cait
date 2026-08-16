@@ -83,7 +83,7 @@ export const flavors: Product[] = [
 export const rolls: Product[] = [
   {
     id: "cinnamon-roll-vanilla-cream-cheese",
-    name: "Cinnamon Roll with Vanilla Cream Cheese",
+    name: "Frosted Cinnamon Roll",
     tagline: "A soft, pillowy roll swirled with cinnamon sugar and topped with a rich vanilla cream cheese frosting",
     priceCents: 600,
     image: "/images/cinnamon-roll.jpg",
