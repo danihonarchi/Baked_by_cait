@@ -242,7 +242,7 @@ export default function OrderPage() {
                 <label className="block text-sm text-cocoa/70" htmlFor="pickupDate">
                   Pickup date
                 </label>
-                <p className="mt-0.5 text-xs text-cocoa/50">At least a day's notice, please.</p>
+                <p className="mt-0.5 text-xs text-cocoa/50">Next day pickup available.</p>
                 <input
                   id="pickupDate"
                   type="date"

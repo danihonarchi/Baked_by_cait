@@ -31,7 +31,7 @@ export const flavors: Product[] = [
   {
     id: "smores",
     name: "Biscoff S’mores",
-    tagline: "A campfire favorite reimagined, with crunchy Biscoff cookie pieces, rich semi-sweet and milk chocolate, and a gooey marshmallow",
+    tagline: "A campfire favorite reimagined, with crunchy Biscoff cookie pieces, rich semi-sweet and milk chocolate, and a gooey marshmallow center",
     priceCents: 400,
     image: "/images/smores.png",
     tags: ["fan favorite"],
