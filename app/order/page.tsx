@@ -241,7 +241,7 @@ export default function OrderPage() {
               <label className="block text-sm text-cocoa/70" htmlFor="fulfillmentDate">
                 {fulfillment === "pickup" ? "Pickup date" : "Delivery date"}
               </label>
-              <p className="mt-0.5 text-xs text-cocoa/50">At least a day's notice, please.</p>
+              <p className="mt-0.5 text-xs text-cocoa/50">Available next day.</p>
               <input
                 id="fulfillmentDate"
                 type="date"
