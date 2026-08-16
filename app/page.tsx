@@ -22,8 +22,7 @@ export default function Home() {
             Cookies worth the crumbs on your counter.
           </h1>
           <p className="mt-5 text-lg text-cocoa/70">
-            Small batches, real butter, whatever flavor sounds good this week.
-            Pick your dozen, choose pickup or local delivery, done.
+            Handcrafted in small batches with real butter and simple ingredients. Order ahead for pickup or delivery, and enjoy your new favorite cookies.
           </p>
           <p className="mt-3 font-ticket text-sm text-cherry">
             Buy 4 cookies, get the 5th free. We add it in automatically at checkout.
@@ -87,14 +86,9 @@ export default function Home() {
             </p>
             <h2 className="mt-2 font-display text-3xl italic text-cocoa">The weekend cookie cart</h2>
             <p className="mt-4 text-cocoa/70">
-              No need to order ahead for this one. Just swing by our
-              self-serve cart out front, pick what looks good, and pay right
-              there on the honor system. Flavors rotate week to week, so it's
-              never quite the same lineup twice.
-            </p>
-            <p className="mt-3 text-cocoa/70">
-              <span className="font-semibold text-cocoa">Sundays only:</span> jumbo
-              cinnamon rolls join the cart, while they last.
+              Stop by Friday through Sunday, 9am - 9pm, with a rotating lineup of fresh
+               flavors to choose from. It's self-serve and runs on the honor system, so
+                grab what you love and leave what you owe. Simple, sweet, and built on trust.
             </p>
           </div>
         </div>
@@ -106,15 +100,14 @@ export default function Home() {
           <div>
             <h3 className="font-display text-2xl italic text-cocoa">Pickup</h3>
             <p className="mt-2 text-cocoa/70">
-              Free, always. Pick a date and time window at checkout, then grab
+              Pick a date and time window at checkout, then grab
               your order from {PICKUP_ADDRESS}.
             </p>
           </div>
           <div>
             <h3 className="font-display text-2xl italic text-cocoa">Local delivery</h3>
             <p className="mt-2 text-cocoa/70">
-              Delivered within about 10 miles of Norman. Enter your address
-              at checkout and you'll see the fee right away. No surprises.
+              Delivery available within 10 miles. Fresh cookies brought right to your door.
             </p>
           </div>
         </div>
