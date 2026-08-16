@@ -12,8 +12,8 @@ export async function POST(req: NextRequest) {
     const fulfillment: "pickup" | "delivery" = body.fulfillment;
     const zip: string | null = body.zip ?? null;
     const deliveryAddress: string | null = body.deliveryAddress ?? null;
-    const pickupDate: string | null = body.pickupDate ?? null;
-    const pickupWindow: string | null = body.pickupWindow ?? null;
+    const fulfillmentDate: string | null = body.fulfillmentDate ?? null;
+    const fulfillmentWindow: string | null = body.fulfillmentWindow ?? null;
     const customer = body.customer ?? {};
 
     if (!items.length) {
@@ -78,16 +78,16 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    if (fulfillment === "pickup" && (!pickupDate || !pickupWindow)) {
-      return NextResponse.json({ error: "A pickup date and time window are required" }, { status: 400 });
+    if (!fulfillmentDate || !fulfillmentWindow) {
+      return NextResponse.json({ error: "A date and time window are required" }, { status: 400 });
     }
-    if (fulfillment === "pickup" && pickupDate) {
+    if (fulfillmentDate) {
       const minDate = new Date();
       minDate.setDate(minDate.getDate() + 1);
       minDate.setHours(0, 0, 0, 0);
-      const requested = new Date(`${pickupDate}T00:00:00`);
+      const requested = new Date(`${fulfillmentDate}T00:00:00`);
       if (requested < minDate) {
-        return NextResponse.json({ error: "Pickup needs at least a day's notice" }, { status: 400 });
+        return NextResponse.json({ error: "At least a day's notice is required" }, { status: 400 });
       }
     }
 
@@ -123,8 +123,8 @@ export async function POST(req: NextRequest) {
         fulfillment,
         zip: zip ?? "",
         deliveryAddress: deliveryAddress ?? "",
-        pickupDate: pickupDate ?? "",
-        pickupWindow: pickupWindow ?? "",
+        fulfillmentDate: fulfillmentDate ?? "",
+        fulfillmentWindow: fulfillmentWindow ?? "",
         customerName: customer.name ?? "",
         customerPhone: customer.phone ?? "",
         notes: (customer.notes ?? "").slice(0, 400),

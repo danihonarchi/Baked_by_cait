@@ -43,8 +43,13 @@ export async function POST(req: NextRequest) {
 
       const fulfillmentLines =
         fulfillment === "pickup"
-          ? [`Pickup date: ${meta.pickupDate || "not set"}`, `Pickup window: ${meta.pickupWindow || "not set"}`]
-          : [`Delivery address: ${meta.deliveryAddress || "not set"}`, `Delivery zip: ${meta.zip || "not set"}`];
+          ? [`Pickup date: ${meta.fulfillmentDate || "not set"}`, `Pickup window: ${meta.fulfillmentWindow || "not set"}`]
+          : [
+              `Delivery address: ${meta.deliveryAddress || "not set"}`,
+              `Delivery zip: ${meta.zip || "not set"}`,
+              `Delivery date: ${meta.fulfillmentDate || "not set"}`,
+              `Delivery window: ${meta.fulfillmentWindow || "not set"}`,
+            ];
 
       const emailText = [
         `New order! ${formatCents(session.amount_total)} total.`,
@@ -69,6 +74,41 @@ export async function POST(req: NextRequest) {
         subject: `New order: ${formatCents(session.amount_total)} (${fulfillment})`,
         text: emailText,
       });
+
+      const customerEmail = session.customer_details?.email;
+      if (customerEmail) {
+        const customerFulfillmentLines =
+          fulfillment === "pickup"
+            ? [
+                `Pickup at 810 Nebraska St, Norman, OK`,
+                `Date: ${meta.fulfillmentDate || "not set"}`,
+                `Window: ${meta.fulfillmentWindow || "not set"}`,
+              ]
+            : [
+                `Delivering to: ${meta.deliveryAddress || "not set"}`,
+                `Date: ${meta.fulfillmentDate || "not set"}`,
+                `Window: ${meta.fulfillmentWindow || "not set"}`,
+              ];
+
+        const customerEmailText = [
+          `Hi ${meta.customerName || "there"}, thanks for your order!`,
+          "",
+          "Here's what you ordered:",
+          itemLines,
+          "",
+          `Total: ${formatCents(session.amount_total)}`,
+          "",
+          ...customerFulfillmentLines,
+          "",
+          "We'll reach out if we need anything else. Thanks for supporting Baked by Cait!",
+        ].join("\n");
+
+        await sendEmail({
+          to: customerEmail,
+          subject: `Your Baked by Cait order is confirmed`,
+          text: customerEmailText,
+        });
+      }
     } catch (err) {
       // Log but still return 200 below — Stripe already has the payment,
       // a notification-email hiccup shouldn't trigger Stripe's retry storm.

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import { flavors, rolls, calculatePromoDiscountCents, COOKIE_MINIMUM, ROLL_MINIMUM, type Product } from "@/lib/flavors";
-import { getDeliveryFeeCents, isDeliveryZip, PICKUP_ADDRESS, PICKUP_WINDOWS, getMinLeadDate } from "@/lib/delivery";
+import { getDeliveryFeeCents, isDeliveryZip, PICKUP_ADDRESS, TIME_WINDOWS, getMinLeadDate } from "@/lib/delivery";
 
 function formatCents(cents: number) {
   return `$${(cents / 100).toFixed(2)}`;
@@ -64,8 +64,8 @@ export default function OrderPage() {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [fulfillment, setFulfillment] = useState<Fulfillment>("pickup");
 
-  const [pickupDate, setPickupDate] = useState("");
-  const [pickupWindow, setPickupWindow] = useState(PICKUP_WINDOWS[0]);
+  const [fulfillmentDate, setFulfillmentDate] = useState("");
+  const [fulfillmentWindow, setFulfillmentWindow] = useState(TIME_WINDOWS[0]);
 
   const [deliveryStreet, setDeliveryStreet] = useState("");
   const [deliveryCity, setDeliveryCity] = useState("Norman");
@@ -79,7 +79,7 @@ export default function OrderPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const minPickupDate = useMemo(() => getMinLeadDate(), []);
+  const minFulfillmentDate = useMemo(() => getMinLeadDate(), []);
 
   function updateQty(id: string, delta: number) {
     setQuantities((q) => ({ ...q, [id]: Math.max(0, (q[id] ?? 0) + delta) }));
@@ -128,12 +128,12 @@ export default function OrderPage() {
       setError("Name, email, and phone number are all required so we can reach you about your order.");
       return;
     }
-    if (fulfillment === "pickup" && (!pickupDate || !pickupWindow)) {
-      setError("Pick a pickup date and time window.");
+    if (!fulfillmentDate || !fulfillmentWindow) {
+      setError(`Pick a ${fulfillment === "pickup" ? "pickup" : "delivery"} date and time window.`);
       return;
     }
-    if (fulfillment === "pickup" && pickupDate < minPickupDate) {
-      setError("Pickup needs at least a day's notice, so pick a date a little further out.");
+    if (fulfillmentDate < minFulfillmentDate) {
+      setError("At least a day's notice is needed, so pick a date a little further out.");
       return;
     }
     if (fulfillment === "delivery") {
@@ -160,8 +160,8 @@ export default function OrderPage() {
           zip: fulfillment === "delivery" ? zip : null,
           deliveryAddress: fulfillment === "delivery" ? `${deliveryStreet}, ${deliveryCity}, OK ${zip}` : null,
           deliveryFeeCents,
-          pickupDate: fulfillment === "pickup" ? pickupDate : null,
-          pickupWindow: fulfillment === "pickup" ? pickupWindow : null,
+          fulfillmentDate,
+          fulfillmentWindow,
           customer: { name, email, phone, notes },
         }),
       });
@@ -235,41 +235,43 @@ export default function OrderPage() {
             </button>
           </div>
 
-          {fulfillment === "pickup" ? (
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <p className="text-sm text-cocoa/60 sm:col-span-2">Pickup at {PICKUP_ADDRESS}.</p>
-              <div>
-                <label className="block text-sm text-cocoa/70" htmlFor="pickupDate">
-                  Pickup date
-                </label>
-                <p className="mt-0.5 text-xs text-cocoa/50">Next day pickup available.</p>
-                <input
-                  id="pickupDate"
-                  type="date"
-                  min={minPickupDate}
-                  value={pickupDate}
-                  onChange={(e) => setPickupDate(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-cocoa/70" htmlFor="pickupWindow">
-                  Pickup window
-                </label>
-                <select
-                  id="pickupWindow"
-                  value={pickupWindow}
-                  onChange={(e) => setPickupWindow(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2"
-                >
-                  {PICKUP_WINDOWS.map((w) => (
-                    <option key={w} value={w}>
-                      {w}
-                    </option>
-                  ))}
-                </select>
-              </div>
+          {/* Date + time window — same for both pickup and delivery */}
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="block text-sm text-cocoa/70" htmlFor="fulfillmentDate">
+                {fulfillment === "pickup" ? "Pickup date" : "Delivery date"}
+              </label>
+              <p className="mt-0.5 text-xs text-cocoa/50">At least a day's notice, please.</p>
+              <input
+                id="fulfillmentDate"
+                type="date"
+                min={minFulfillmentDate}
+                value={fulfillmentDate}
+                onChange={(e) => setFulfillmentDate(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2"
+              />
             </div>
+            <div>
+              <label className="block text-sm text-cocoa/70" htmlFor="fulfillmentWindow">
+                {fulfillment === "pickup" ? "Pickup window" : "Delivery window"}
+              </label>
+              <select
+                id="fulfillmentWindow"
+                value={fulfillmentWindow}
+                onChange={(e) => setFulfillmentWindow(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-cocoa/20 bg-parchment px-3 py-2"
+              >
+                {TIME_WINDOWS.map((w) => (
+                  <option key={w} value={w}>
+                    {w}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {fulfillment === "pickup" ? (
+            <p className="mt-4 text-sm text-cocoa/60">Pickup at {PICKUP_ADDRESS}.</p>
           ) : (
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">

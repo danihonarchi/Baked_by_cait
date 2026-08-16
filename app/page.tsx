@@ -22,7 +22,8 @@ export default function Home() {
             Cookies worth the crumbs on your counter.
           </h1>
           <p className="mt-5 text-lg text-cocoa/70">
-            Handcrafted in small batches with real butter and simple ingredients. Order ahead for pickup or delivery, and enjoy your new favorite cookies.
+            Small batches, real butter, whatever flavor sounds good this week.
+            Pick your dozen, choose pickup or local delivery, done.
           </p>
           <p className="mt-3 font-ticket text-sm text-cherry">
             Buy 4 cookies, get the 5th free. We add it in automatically at checkout.
@@ -48,9 +49,9 @@ export default function Home() {
       {/* Flavor case */}
       <section id="flavors" className="mx-auto max-w-6xl px-6 py-16">
         <div className="mb-10 text-center">
-          <h2 className="font-display text-3xl italic text-cocoa">Flavors Available This Week</h2>
+          <h2 className="font-display text-3xl italic text-cocoa">This week's case</h2>
           <p className="mt-2 text-cocoa/60">
-            The lineup rotates. Here's what we're baking this week.
+            The lineup rotates. Whatever's below is what's fresh right now.
           </p>
         </div>
         <FlavorCase />
@@ -58,7 +59,7 @@ export default function Home() {
         <div className="mt-14 border-t border-cocoa/10 pt-14">
           <div className="mb-8 text-center">
             <h3 className="font-display text-2xl italic text-cocoa">Also baking</h3>
-            
+            <p className="mt-2 text-cocoa/60">Available to order online, any day of the week.</p>
           </div>
           <div className="mx-auto max-w-xs">
             <Link href="/order" className="block">
@@ -86,9 +87,14 @@ export default function Home() {
             </p>
             <h2 className="mt-2 font-display text-3xl italic text-cocoa">The weekend cookie cart</h2>
             <p className="mt-4 text-cocoa/70">
-              Stop by Friday through Sunday, 9am - 9pm, with a rotating lineup of fresh
-               flavors to choose from. It's self-serve and runs on the honor system, so
-                grab what you love and leave what you owe. Simple, sweet, and built on trust.
+              No need to order ahead for this one. Just swing by our
+              self-serve cart out front, pick what looks good, and pay right
+              there on the honor system. Flavors rotate week to week, so it's
+              never quite the same lineup twice.
+            </p>
+            <p className="mt-3 text-cocoa/70">
+              <span className="font-semibold text-cocoa">Sundays only:</span> jumbo
+              cinnamon rolls join the cart, while they last.
             </p>
           </div>
         </div>
@@ -100,14 +106,15 @@ export default function Home() {
           <div>
             <h3 className="font-display text-2xl italic text-cocoa">Pickup</h3>
             <p className="mt-2 text-cocoa/70">
-              Pick a date and time window at checkout, then grab
+              Free, always. Pick a date and time window at checkout, then grab
               your order from {PICKUP_ADDRESS}.
             </p>
           </div>
           <div>
             <h3 className="font-display text-2xl italic text-cocoa">Local delivery</h3>
             <p className="mt-2 text-cocoa/70">
-              Delivery available within 10 miles. Fresh cookies brought right to your door.
+              Delivered within about 10 miles of Norman. Enter your address
+              at checkout and you'll see the fee right away. No surprises.
             </p>
           </div>
         </div>

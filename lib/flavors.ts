@@ -21,7 +21,7 @@ export const flavors: Product[] = [
   {
     id: "deluxe-chocolate-chip",
     name: "Deluxe Chocolate Chip",
-    tagline: " A classic done right. Packed edge to edge with melty pools of semi-sweet and milk chocolate in every single bite",
+    tagline: "Loaded with chocolate chips, soft and gooey center",
     priceCents: 400,
     image: "/images/deluxe-chocolate-chip.png",
     tags: ["classic", "best seller"],
@@ -30,8 +30,8 @@ export const flavors: Product[] = [
   },
   {
     id: "smores",
-    name: "Biscoff S’mores",
-    tagline: "A campfire favorite reimagined, with crunchy Biscoff cookie pieces, rich semi-sweet and milk chocolate, and a gooey marshmallow center",
+    name: "S'mores",
+    tagline: "Chocolate chip base, gooey marshmallow, graham crumble",
     priceCents: 400,
     image: "/images/smores.png",
     tags: ["fan favorite"],
@@ -41,7 +41,7 @@ export const flavors: Product[] = [
   {
     id: "oreo",
     name: "Oreo",
-    tagline: "Crushed Oreo pieces folded throughout with generous chunks of white chocolate, for a cookies-and-cream dream in every bite",
+    tagline: "Chunks of Oreo and white chocolate throughout",
     priceCents: 400,
     image: "/images/oreo.png",
     tags: ["crowd pleaser"],
@@ -51,7 +51,7 @@ export const flavors: Product[] = [
   {
     id: "nutella",
     name: "Nutella",
-    tagline: "A soft milk chocolate chip cookie filled with a pocket of Nutella and finished with Nutella drizzle on top",
+    tagline: "Hazelnut chocolate swirled through every bite",
     priceCents: 400,
     image: "/images/nutella.png",
     tags: ["rich"],
@@ -61,7 +61,7 @@ export const flavors: Product[] = [
   {
     id: "salted-caramel",
     name: "Salted Caramel",
-    tagline: "A rich chocolate chip cookie studded with buttery salted caramel chunks. Sweet, gooey, and finished with a touch of sea salt",
+    tagline: "Buttery caramel pockets, finished with flaky salt",
     priceCents: 400,
     image: "/images/salted-caramel.png",
     tags: ["sweet & salty"],
@@ -71,7 +71,7 @@ export const flavors: Product[] = [
   {
     id: "white-chocolate-macadamia",
     name: "White Chocolate Macadamia Nut",
-    tagline: "Loaded with creamy white chocolate and roasted macadamia nuts for the perfect sweet-and-salty balance",
+    tagline: "White chocolate chunks and toasted macadamia nuts",
     priceCents: 400,
     image: "/images/white-choc-macadamia.png",
     tags: ["classic"],
@@ -84,7 +84,7 @@ export const rolls: Product[] = [
   {
     id: "cinnamon-roll-vanilla-cream-cheese",
     name: "Cinnamon Roll with Vanilla Cream Cheese",
-    tagline: "A soft, pillowy roll swirled with cinnamon sugar and topped with a rich vanilla cream cheese frosting",
+    tagline: "Soft, swirled, and finished with vanilla cream cheese icing",
     priceCents: 600,
     image: "/images/cinnamon-roll.jpg",
     tags: ["not eligible for cookie promo"],

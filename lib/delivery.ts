@@ -37,14 +37,16 @@ export function getDeliveryFeeCents(zip: string): number | null {
 
 export const DELIVERY_ZONE_LIST = Object.keys(DELIVERY_ZIPS);
 
-// Fixed pickup time windows offered at checkout for online orders. Edit
-// this list to match how far ahead you need for baking + how you want to
-// split up the day.
-export const PICKUP_WINDOWS = [
+// Fixed time windows offered at checkout for online orders, used for both
+// pickup and delivery. Edit this list to match how far ahead you need for
+// baking, or how you want to split up the day.
+export const TIME_WINDOWS = [
   "9:00 AM – 11:00 AM",
   "11:00 AM – 1:00 PM",
   "1:00 PM – 3:00 PM",
   "3:00 PM – 5:00 PM",
+  "5:00 PM – 7:00 PM",
+  "7:00 PM – 9:00 PM",
 ];
 
 // Earliest date we'll accept for a pickup or catering event, in the

@@ -117,7 +117,7 @@ export default function CateringPage() {
             </div>
             <div>
               <label className="block text-sm text-cocoa/70" htmlFor="eventDate">Date needed</label>
-              <p className="mt-0.5 text-xs text-cocoa/50">Please allow at least 3 days' notice for catering orders.</p>
+              <p className="mt-0.5 text-xs text-cocoa/50">At least a day's notice, please.</p>
               <input
                 id="eventDate"
                 type="date"
