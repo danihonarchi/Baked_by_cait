@@ -241,7 +241,7 @@ export default function OrderPage() {
               <label className="block text-sm text-cocoa/70" htmlFor="fulfillmentDate">
                 {fulfillment === "pickup" ? "Pickup date" : "Delivery date"}
               </label>
-              <p className="mt-0.5 text-xs text-cocoa/50">Available next day.</p>
+              <p className="mt-0.5 text-xs text-cocoa/50">At least a day's notice, please.</p>
               <input
                 id="fulfillmentDate"
                 type="date"
@@ -255,6 +255,9 @@ export default function OrderPage() {
               <label className="block text-sm text-cocoa/70" htmlFor="fulfillmentWindow">
                 {fulfillment === "pickup" ? "Pickup window" : "Delivery window"}
               </label>
+              <p className="mt-0.5 text-xs text-transparent select-none" aria-hidden="true">
+                spacer
+              </p>
               <select
                 id="fulfillmentWindow"
                 value={fulfillmentWindow}
